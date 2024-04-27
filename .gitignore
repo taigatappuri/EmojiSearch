@@ -1,1 +1,12 @@
 Data
+
+# venv
+
+EmojiSearch_venv
+
+#python cache
+__pycache__/
+*.py[cod]
+
+# jupyter Notebook
+.ipynb_checkpoints/
