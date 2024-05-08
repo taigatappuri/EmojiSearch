@@ -10,3 +10,7 @@ __pycache__/
 
 # jupyter Notebook
 .ipynb_checkpoints/
+
+
+# experimental
+ESM.ipynb
