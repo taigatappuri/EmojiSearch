@@ -19,9 +19,10 @@ class State(rx.State):
 
     results: List[Tuple[str, str, float]]
     
-    def get_results(self):
-        answer = self.results
-    
+
+    def get_results(self): 
+        
+        self.results.clear()  # 既存の結果をクリア
         input_embedding = model.encode([self.words])
         
         emoji_embeddings_norm = emoji_embeddings / np.linalg.norm(emoji_embeddings, axis=1, keepdims=True)
@@ -36,5 +37,6 @@ class State(rx.State):
             emoji_name = emoji_row['name']
             similarity = cosine_similarities[index][0]
             print(emoji, emoji_name, similarity)
-            self.results.append((emoji, ":"+emoji_name+":", float(similarity)))
-        self.words = ""    
+            self.results.append((emoji, ":"+emoji_name+":", float(similarity))) 
+            
+            

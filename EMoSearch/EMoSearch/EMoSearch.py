@@ -2,6 +2,9 @@ import reflex as rx
 from EMoSearch import style
 from EMoSearch.state import State
 import os
+import time
+
+from typing import List, Tuple
 
 def show_result(emoji: str, emoji_name: str, similarity: float) -> rx.Component:
     return rx.box(
@@ -49,25 +52,40 @@ def chat() -> rx.Component:
         )
     )
 
+class FormState(rx.State):
+    form_data: dict = {}
+
+    def handle_submit(self, form_data: dict):
+        self.form_data = form_data
+
+
+
 def action_bar() -> rx.Component:
-    return rx.hstack(
-        rx.input(
-            value=State.words,   
-            placeholder="単語を入力",
-            on_change=State.set_words,
-            style=style.input_style,
-        ),
-        rx.button(
-            "検索🔍️",
-            on_click=State.get_results,
-            style=style.button_style
-        ),
-    )
+    return rx.vstack(
+            rx.form(
+                rx.vstack(
+                    rx.input(
+                        placeholder="単語を入力してください",
+                        name="words",
+                        on_change=State.set_words,
+                    ),
+                    rx.button(
+                        "検索",
+                        on_click=State.get_results,
+                        type="submit"
+                    ),
+                ),
+                on_submit=FormState.handle_submit,
+                reset_on_submit=True,
+            ),
+            rx.divider(),
+            rx.heading("Search Words"),
+            rx.text(State.words),
+        )
 
 
 
-def index() -> rx.Component:
-    print(os.getcwd())
+def index() -> rx.Component: 
     return rx.container(
         rx.vstack(
             action_bar(),
