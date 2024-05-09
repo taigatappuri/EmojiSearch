@@ -1,6 +1,7 @@
 import reflex as rx
 from EMoSearch import style
 from EMoSearch.state import State
+import os
 
 def show_result(emoji: str, emoji_name: str, similarity: float) -> rx.Component:
     return rx.box(
@@ -23,7 +24,7 @@ def show_result(emoji: str, emoji_name: str, similarity: float) -> rx.Component:
             rx.box(
                 rx.text(f"Similarity: {similarity:.2f}", style={"font-size": "1em"}),
                 text_align="center",
-                style={"padding": "10px"},
+                style=style.similarity_style,
             ),
             # コピーボタン
             rx.box(
@@ -35,20 +36,9 @@ def show_result(emoji: str, emoji_name: str, similarity: float) -> rx.Component:
                 text_align="center",
                 style={"padding": "10px"},
             ),
-        ),
-        # カード全体のスタイル
-        style={
-            "border": "1px solid #ccc",  # 境界線
-            "border-radius": "10px",     # 角の丸み
-            "margin": "10px",            # 外側の余白
-            "padding": "20px",           # 内側の余白
-            "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)",  # 影
-            "transition": "0.3s",        # ホバー時のトランジション
-            "background-color": "#fff",  # 背景色
-        },
-        hover_style={
-            "box-shadow": "0 8px 16px 0 rgba(0,0,0,0.2)",  # ホバー時の影
-        }
+        ), 
+        style=style.card_style,
+        hover_style=style.card_hover_style,  # ホバー時のスタイル
     )
 
 def chat() -> rx.Component:
@@ -77,6 +67,7 @@ def action_bar() -> rx.Component:
 
 
 def index() -> rx.Component:
+    print(os.getcwd())
     return rx.container(
         rx.vstack(
             action_bar(),
