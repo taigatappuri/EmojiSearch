@@ -22,14 +22,14 @@ similarity_style = dict(
 
 card_style = dict(
     border="1px solid #ccc",  # 境界線
-    border_radius="10px",     # 角の丸み
+    border_radius="36px",     # 角の丸み
     margin="10px",            # 外側の余白
     padding="20px",           # 内側の余白
-    box_shadow="0 4px 8px 0 rgba(0,0,0,0.2)",  # 影
+    box_shadow=shadow,        # 影
     transition="0.3s",        # ホバー時のトランジション
     background_color="#fff",  # 背景色
 )
 
-card_hover_style = dict(
-    box_shadow="0 8px 16px 0 rgba(0,0,0,0.2)"  # ホバー時の影
-)
+#card_hover_style = dict(
+#    box_shadow="0 8px 16px 0 rgba(0,0,0,0.2)"  # ホバー時の影
+#)

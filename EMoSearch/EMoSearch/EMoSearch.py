@@ -6,38 +6,62 @@ import time
 
 from typing import List, Tuple
 
+shadow = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
+
+def emoji_copy(emoji: str) -> None:
+    rx.box(
+        rx.toast.provider(),
+    )
+
 def show_result(emoji: str, emoji_name: str, similarity: float) -> rx.Component:
-    return rx.flex(
-        # カードのタイトル（絵文字とその名前）
-        rx.box(
-            rx.text(emoji, style={"font-size": "2em"}),
-            text_align="center",    
-            margin_left="auto",
-        ),
-        rx.box(
-            rx.text(emoji_name, style={"font-size": "2em"}),
-            text_align="center",
-            margin_left="auto",
-        ),
-        # # similarity の表示
-        # rx.box(
-        #     rx.text(f"Similarity: {similarity:.2f}", style={"font-size": "1em"}),
-        #     text_align="center",
-        #     margin_left="auto",
-        #     style=style.similarity_style,
-        # ),
-        # コピーボタン
-        rx.box(
-            rx.button(
-                "コピー",
-                on_click=rx.set_clipboard(emoji),
-                style=style.button_style,
+    return rx.box(
+        rx.hstack(
+            # カードのタイトル（絵文字とその名前）
+            rx.box(
+                rx.text(
+                    emoji,
+                    font_size="3em",
+                    high_contrast=True,
+                ),
             ),
-            text_align="center",
-            style={"padding": "10px"},
+            rx.box(
+                rx.text(
+                    emoji_name,
+                    color=rx.color("gray", 8),
+                    font_size="1.5em",
+                    high_contrast=True,
+                    font_family="IBM Plex Mono",
+                ),
+                text_align="left",
+                margin_left="auto",
+                margin_y="auto",
+            ),
+            # # similarity の表示
+            # rx.box(
+            #     rx.text(f"Similarity: {similarity:.2f}", style={"font-size": "1em"}),
+            #     text_align="center",
+            #     margin_left="auto",
+            #     style=style.similarity_style,
+            # ),
+            # コピーボタン
+            rx.box(
+                rx.button(
+                    "📋",
+                    on_click=emoji_copy(emoji),
+                    style=style.button_style,
+                    border_radius="150%",
+                    color_scheme='yellow', # white が使えるはずだが、使えない...
+                    box_shadow=shadow, 
+                ),
+                text_align="center",
+                style={"padding": "10px"},
+                margin_left="auto",
+                margin_y="auto",
+            ),
         ),
         style=style.card_style,
-        hover_style=style.card_hover_style,  # ホバー時のスタイル
+        width="500px",
+        #hover_style=style.card_hover_style,  # ホバー時のスタイル
     )
 
 def chat() -> rx.Component:
@@ -57,16 +81,17 @@ class FormState(rx.State):
 
 
 def action_bar() -> rx.Component:
-    return rx.vstack(
+    return rx.hstack(
             rx.form(
-                rx.vstack(
+                rx.hstack(
                     rx.input(
-                        placeholder="単語を入力してください",
+                        placeholder="Enter the text✨️",
                         name="words",
                         on_change=State.set_words,
+                        width="400px",
                     ),
                     rx.button(
-                        "検索",
+                        "Search🔍️",
                         on_click=State.get_results,
                         type="submit"
                     ),
@@ -75,8 +100,6 @@ def action_bar() -> rx.Component:
                 reset_on_submit=True,
             ),
             rx.divider(),
-            rx.heading("Search Words"),
-            rx.text(State.words),
         )
 
 
