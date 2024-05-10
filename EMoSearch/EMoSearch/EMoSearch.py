@@ -107,7 +107,7 @@ def top() -> rx.Component:
         rx.box(
             rx.box(
                 rx.video(
-                    url="/bgy.mp4", # ローカルのビデオファイルパスか、外部URLを指定
+                    url="/background_glasses.mp4", # ローカルのビデオファイルパスか、外部URLを指定
                     width="100%", # 画面の幅全体をカバー
                     height="auto", # 高さは自動調整
                     playing=True,
@@ -127,7 +127,7 @@ def top() -> rx.Component:
                     font_size="4em", 
                     font_weight="bold",
                     text_align="center",
-                    color=rx.color("blue", 10),
+                    color=rx.color("blue", 8),
                     margin_y="auto",
                 ),  
             ),
