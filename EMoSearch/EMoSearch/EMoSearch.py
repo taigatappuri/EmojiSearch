@@ -8,10 +8,10 @@ from typing import List, Tuple
 
 shadow = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
 
-def emoji_copy(emoji: str) -> None:
-    rx.box(
-        rx.toast.provider(),
-    )
+#def emoji_copy(emoji: str) -> None:
+#    rx.box(
+#        rx.toast.provider(),
+#    )
 
 def show_result(emoji: str, emoji_name: str, similarity: float) -> rx.Component:
     return rx.box(
@@ -47,7 +47,7 @@ def show_result(emoji: str, emoji_name: str, similarity: float) -> rx.Component:
             rx.box(
                 rx.button(
                     "📋",
-                    on_click=emoji_copy(emoji),
+                    on_click=rx.set_clipboard(emoji),
                     style=style.button_style,
                     border_radius="150%",
                     color_scheme='yellow', # white が使えるはずだが、使えない...
@@ -102,10 +102,42 @@ def action_bar() -> rx.Component:
             rx.divider(),
         )
 
-
-
+def top() -> rx.Component:
+    return rx.box(
+        rx.box(
+            rx.box(
+                rx.video(
+                    url="/bgy.mp4", # ローカルのビデオファイルパスか、外部URLを指定
+                    width="100%", # 画面の幅全体をカバー
+                    height="auto", # 高さは自動調整
+                    playing=True,
+                    controls=False, # ビデオコントロールを非表示に設定
+                    autoplay=True, # ページロード時に自動再生
+                    loop=True, # ビデオをループ再生
+                    muted=True, # 自動再生の場合、ミュートを推奨
+                    position="absolute", # 背景として配置するために絶対位置指定
+                    top="0",
+                    left="0",
+                    z_index="-1", # コンテンツの背後に配置
+                )
+            ),
+            rx.box(
+                rx.text(
+                    "EMoSearch", 
+                    font_size="4em", 
+                    font_weight="bold",
+                    text_align="center",
+                    color=rx.color("blue", 10),
+                    margin_y="auto",
+                ),  
+            ),
+        ),
+    )
+    
+print(f"Current working directory: {os.getcwd()}")
 def index() -> rx.Component: 
-    return rx.container(
+    return rx.box(
+        top(),
         rx.vstack(
             action_bar(),
             chat(),
