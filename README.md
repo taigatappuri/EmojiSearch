@@ -32,3 +32,5 @@ $ source ./venv/bin/activate
 $ cd EmojiSearch/venv/
 $ pip install -r requirements.txt
 ```
+
+続きは後で書きます...
